@@ -7,6 +7,7 @@ import app from '../firebase/firebase.init';
 import Swal from 'sweetalert2';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import usePasswordToggle from '../hookes/usePasswordToggle';
 
 
 const auth=getAuth(app)
@@ -14,6 +15,7 @@ const auth=getAuth(app)
 const Login = () => {
     const [error,setError]=useState('');
     const [user,setUser]=useState({})
+    const [icon,inputType]=usePasswordToggle()
     
     const handleSubmit =(event)=>{
         event.preventDefault()
@@ -49,11 +51,11 @@ const Login = () => {
                 <Form.Control type="email" name='email' placeholder="Enter email" />
                 </Form.Group>
 
-            <Form.Group className="mb-3" controlId="formBasicPassword">
+            <Form.Group className="mb-3 position-relative" controlId="formBasicPassword">
                 <Form.Label>Password</Form.Label>
-                <Form.Control type="password" name='password' placeholder="Password" />
+                <Form.Control type={inputType} name='password' placeholder="Password" />
             </Form.Group>
-            
+          <span className='position-absolute top-50 start-50 ms-5 z-3'>{icon}</span>
             <Button variant="primary" type="submit">
                 Submit
             </Button>
